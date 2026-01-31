@@ -1,59 +1,101 @@
-# OnlineRestaurant
+# Savory Bites 🍜
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+An elegant online restaurant ordering application built with Angular, featuring a modern UI for browsing dishes, filtering by categories, and managing shopping carts.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- 🍽️ **Browse Dishes** - View all available restaurant items with images and details
+- 🔍 **Smart Filtering** - Filter by category, spiciness level, vegetarian, and nutty dishes
+- 🛒 **Shopping Cart** - Add items, update quantities, and delete products
+- 📍 **Scroll Position Memory** - Maintains your scroll position when navigating between pages
+- 🔔 **Toast Notifications** - Real-time feedback for user actions
+- 📱 **Responsive Design** - Works seamlessly on desktop and mobile devices
 
+## Tech Stack
+
+- **Framework**: Angular 20.2.2 (Standalone Components)
+- **Language**: TypeScript 5.9.2
+- **Styling**: CSS3
+- **State Management**: RxJS with BehaviorSubjects
+- **HTTP Client**: Angular HttpClient
+- **Backend API**: REST API at `https://restaurant.stepprojects.ge/api`
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-ng serve
+git clone https://github.com/GiorgiKemo/savory-bites.git
+cd savory-bites
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Install dependencies:
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Development Server
 
+Run the development server:
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+Navigate to `http://localhost:4200/`. The application will automatically reload when you modify source files.
 
-To build the project run:
+### Build for Production
 
+Build the application for production:
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Project Structure
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```
+src/
+├── app/
+│   ├── api.ts              # API service for backend communication
+│   ├── app.ts              # Root component
+│   ├── app.html            # Root template
+│   ├── app.routes.ts       # Application routing
+│   ├── models.ts           # TypeScript interfaces
+│   ├── scroll.service.ts   # Scroll position management
+│   ├── cart/               # Shopping cart module
+│   ├── dishes/             # Dishes listing module
+│   └── toast/              # Toast notification module
+├── main.ts                 # Application bootstrap
+└── styles.css              # Global styles
 ```
 
-## Running end-to-end tests
+## Recent Improvements
 
-For end-to-end (e2e) testing, run:
+- ✅ Fixed inverted nuts filter logic
+- ✅ Improved cart deletion workflow (backend-first approach)
+- ✅ Added scroll position persistence across navigation
+- ✅ Implemented scroll-to-top functionality for home button
 
-```bash
-ng e2e
-```
+## API Integration
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+The application connects to a restaurant API that provides:
+- Product listings with categories
+- Filtering and search capabilities
+- Basket/cart management
+- Product and category data
 
-## Additional Resources
+## License
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is open source and available under the MIT License.
+
+## Author
+
+Giorgi Kemo
+
