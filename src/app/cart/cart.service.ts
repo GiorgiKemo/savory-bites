@@ -30,6 +30,7 @@ export class CartService {
               const productDetails = products[index];
               return {
                 ...item,
+                productId: item.productId || item.id || item.basketId,
                 name: productDetails.name,
                 price: productDetails.price
               };
