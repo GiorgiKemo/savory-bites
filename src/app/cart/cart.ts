@@ -34,7 +34,7 @@ export class Cart implements OnInit {
 
   deleteItem(item: any): void {
     console.log('Item to delete:', item);
-    const productId = item.productId || item.id || item.basketId;
+    const productId = item.productId || item.id || item.product?.id;
     if (productId) {
       this.api.deleteProduct(productId).subscribe({
         next: () => {

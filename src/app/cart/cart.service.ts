@@ -24,14 +24,19 @@ export class CartService {
         if (!items || items.length === 0) {
           return of([]);
         }
-        const productObservables = items.map(item => this.api.getProduct(item.productId));
+        const productObservables = items.map(item => {
+          const productId = item.product?.id || item.productId;
+          return this.api.getProduct(productId);
+        });
         return forkJoin(productObservables).pipe(
           switchMap(products => {
             const detailedItems = items.map((item, index) => {
               const productDetails = products[index];
+              const productId = item.product?.id || item.productId || item.id;
               const normalizedItem = {
                 ...item,
-                productId: item.productId || item.id || item.basketId,
+                productId: productId,
+                id: productId,
                 name: productDetails.name,
                 price: productDetails.price
               };
