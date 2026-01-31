@@ -1,0 +1,55 @@
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Api } from '../api';
+import { CartService } from './cart.service';
+
+@Component({
+  selector: 'app-cart',
+  imports: [CommonModule, FormsModule],
+  templateUrl: './cart.html',
+  styleUrl: './cart.css',
+})
+export class Cart implements OnInit {
+  cartItems: any[] = [];
+  totalPrice: number = 0;
+
+  constructor(
+    private api: Api,
+    private cartService: CartService,
+  ) {}
+
+  ngOnInit(): void {
+    this.cartService.cartItems$.subscribe((items) => {
+      this.cartItems = items;
+      this.calculateTotal();
+    });
+  }
+
+  updateQuantity(item: any): void {
+    this.api.updateBasket(item).subscribe(() => {
+      this.calculateTotal();
+    });
+  }
+
+  deleteItem(item: any): void {
+    const productId = item.productId || item.id;
+    if (productId) {
+      this.api.deleteProduct(productId).subscribe({
+        next: () => {
+          this.cartService.deleteItem(productId);
+          console.log('Item deleted successfully from backend.');
+        },
+        error: (err: any) => {
+          console.error('Error deleting item from backend:', err);
+        },
+      });
+    } else {
+      console.error('Could not find product id to delete.');
+    }
+  }
+
+  calculateTotal(): void {
+    this.totalPrice = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  }
+}
