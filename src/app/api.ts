@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Product, Category, BasketPostDto } from './models';
 
 @Injectable({
@@ -59,7 +59,9 @@ export class Api {
   }
 
   getBasket(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/Baskets/GetAll`);
+    return this.http.get<any[]>(`${this.apiUrl}/Baskets/GetAll`).pipe(
+      tap(response => console.log('🔍 BASKET API RESPONSE:', response))
+    );
   }
 
   updateBasket(product: any): Observable<any> {
