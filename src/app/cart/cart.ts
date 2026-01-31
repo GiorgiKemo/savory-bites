@@ -33,7 +33,8 @@ export class Cart implements OnInit {
   }
 
   deleteItem(item: any): void {
-    const productId = item.productId || item.id;
+    console.log('Item to delete:', item);
+    const productId = item.productId || item.id || item.basketId;
     if (productId) {
       this.api.deleteProduct(productId).subscribe({
         next: () => {
@@ -45,7 +46,8 @@ export class Cart implements OnInit {
         },
       });
     } else {
-      console.error('Could not find product id to delete.');
+      console.error('Could not find product id to delete. Item object:', item);
+      console.error('Available properties:', Object.keys(item));
     }
   }
 
