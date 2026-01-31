@@ -20,6 +20,7 @@ export class CartService {
   loadCart() {
     this.api.getBasket().pipe(
       switchMap(items => {
+        console.log('Raw basket items from API:', items);
         if (!items || items.length === 0) {
           return of([]);
         }
@@ -28,12 +29,14 @@ export class CartService {
           switchMap(products => {
             const detailedItems = items.map((item, index) => {
               const productDetails = products[index];
-              return {
+              const normalizedItem = {
                 ...item,
                 productId: item.productId || item.id || item.basketId,
                 name: productDetails.name,
                 price: productDetails.price
               };
+              console.log('Normalized item:', normalizedItem);
+              return normalizedItem;
             });
             return of(detailedItems);
           })
